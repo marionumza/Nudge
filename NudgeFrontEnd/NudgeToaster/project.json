@@ -3,6 +3,7 @@
     "Google.Apis.Oauth2.v2": "1.22.0.672",
     "Microsoft.AspNet.WebApi.Client": "5.2.3",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
+    "Newtonsoft.Json": "9.0.1",
     "NotificationsExtensions.Win10": "14332.0.2"
   },
   "frameworks": {
