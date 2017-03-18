@@ -11,28 +11,44 @@ namespace NudgeToaster
     class API
     {
         
-        public float prob { get; set; }
+        public float Prob { get; set; }
+        public String ModelsJson { get; set; }
         static HttpClient client = new HttpClient();
 
         public void RunAPI()
         {
-            // New code:
-            client.BaseAddress = new Uri("https://ml.googleapis.com/v1/");
+            client.BaseAddress = new Uri("https://ml.googleapis.com");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            Console.WriteLine(GetProductAsync("{parent=nudge-161903/*}/models"));
+            Console.WriteLine(GetModelsAsync("v1/projects/nudge-161903/models"));
+
         }
 
-        async Task<float> GetProductAsync(string path)
+
+        async Task<String> GetModelsAsync(string path)
         {
-      
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                prob = await response.Content.ReadAsAsync<float>();
+                ModelsJson = await response.Content.ReadAsAsync<String>();
             }
-            return prob;
+            return ModelsJson;
+        }
+
+
+
+
+
+        async Task<float> GetPredictionAsync(string path)
+        {
+
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                Prob = await response.Content.ReadAsAsync<float>();
+            }
+            return Prob;
         }
     }
 }
