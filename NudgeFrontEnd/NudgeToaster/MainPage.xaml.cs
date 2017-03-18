@@ -27,6 +27,8 @@ namespace NudgeToaster
         public MainPage()
         {
             this.InitializeComponent();
+            API api = new API();
+            api.RunAPI();
         }
 
         private void Show(ToastContent content)
@@ -41,8 +43,8 @@ namespace NudgeToaster
             {
                 Visual = new ToastVisual()
                 {
-                    
-                    TitleText = new ToastText() { Text = "It's currently " + time},
+
+                    TitleText = new ToastText() { Text = "It's currently " + time },
                     BodyTextLine1 = new ToastText() { Text = "Is this really what you want to be doing right now? " }
                 },
 
