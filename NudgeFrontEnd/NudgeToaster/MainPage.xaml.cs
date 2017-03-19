@@ -24,11 +24,12 @@ namespace NudgeToaster
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private API api;
+
         public MainPage()
         {
             this.InitializeComponent();
-            API api = new API();
-            api.RunAPI();
+            api = new API(this.textBoxOutput);
         }
 
         private void Show(ToastContent content)
@@ -36,8 +37,11 @@ namespace NudgeToaster
             ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void notif_Click(object sender, RoutedEventArgs e)
         {
+            api.RunAPI();
+
+
             String time = DateTime.Now.ToString("HH:mm tt");
             Show(new ToastContent()
             {
@@ -61,6 +65,16 @@ namespace NudgeToaster
                     }
                 }
             });
+        }
+
+        private void auth_Click(object sender, RoutedEventArgs e)
+        {
+         api.authGoogleCloud();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            api.ProcessAuth(e);
         }
     }
 }

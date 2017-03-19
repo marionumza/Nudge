@@ -8,7 +8,13 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="button" Content="Test Notif" HorizontalAlignment="Left" Margin="490,182,0,0" VerticalAlignment="Top" Height="81" Width="340" Click="button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="107*"/>
+            <RowDefinition Height="73*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="notif" Content="Test Notif" HorizontalAlignment="Left" Margin="476,162,0,0" VerticalAlignment="Top" Height="81" Width="340" Click="notif_Click"/>
+        <TextBox x:Name="textBoxOutput" HorizontalAlignment="Left" Height="340" Margin="446,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="400" Grid.RowSpan="2"/>
+        <Button x:Name="auth_button" Content="Auth" HorizontalAlignment="Left" Margin="476,47,0,0" VerticalAlignment="Top" Height="81" Width="340" Click="auth_Click"/>
 
     </Grid>
 </Page>
