@@ -7,14 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="210,0,213,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="107*"/>
-            <RowDefinition Height="73*"/>
+            <RowDefinition Height="339*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="292*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="notif" Content="Test Notif" HorizontalAlignment="Left" Margin="476,162,0,0" VerticalAlignment="Top" Height="81" Width="340" Click="notif_Click"/>
-        <TextBox x:Name="textBoxOutput" HorizontalAlignment="Left" Height="340" Margin="446,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="400" Grid.RowSpan="2"/>
-        <Button x:Name="auth_button" Content="Auth" HorizontalAlignment="Left" Margin="476,47,0,0" VerticalAlignment="Top" Height="81" Width="340" Click="auth_Click"/>
+        <Button x:Name="notif" Content="Test Notif" HorizontalAlignment="Stretch" Margin="140,134,445,0" VerticalAlignment="Top" Height="81" Click="notif_Click"/>
+        <TextBox x:Name="textBoxOutput" Height="436" Margin="54,248,59,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.RowSpan="4"/>
+        <Button x:Name="auth_button" Content="Auth" HorizontalAlignment="Stretch" Margin="140,35,149,0" VerticalAlignment="Top" Height="81" Click="auth_Click"/>
+        <Button x:Name="PredictButton" Content="Predict" HorizontalAlignment="Stretch" Margin="440,135,149,0" VerticalAlignment="Top" Height="80" Click="PredictButton_Click"/>
 
     </Grid>
 </Page>

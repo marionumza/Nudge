@@ -39,7 +39,7 @@ namespace NudgeToaster
 
         private void notif_Click(object sender, RoutedEventArgs e)
         {
-            api.RunAPI();
+            api.TestAPI();
 
 
             String time = DateTime.Now.ToString("HH:mm tt");
@@ -75,6 +75,11 @@ namespace NudgeToaster
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             api.ProcessAuth(e);
+        }
+
+        private void PredictButton_Click(object sender, RoutedEventArgs e)
+        {
+            api.TestPredict();
         }
     }
 }

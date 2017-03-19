@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "Google.Apis.CloudMachineLearningEngine.v1": "1.22.0.793",
     "Google.Apis.Oauth2.v2": "1.22.0.672",
     "Microsoft.AspNet.WebApi.Client": "5.2.3",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",

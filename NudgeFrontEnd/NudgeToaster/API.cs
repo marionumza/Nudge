@@ -13,6 +13,8 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace NudgeToaster
 {
@@ -22,7 +24,9 @@ namespace NudgeToaster
 
         public float Prob { get; set; }
         public String ModelsJson { get; set; }
-        static HttpClient client = new HttpClient();
+        public String PredictJson { get; set; }
+
+        public HttpClient client = new HttpClient();
         private TextBox textBoxOutput;
 
         /// <summary>
@@ -32,24 +36,98 @@ namespace NudgeToaster
         const string redirectURI = "uwp.nudge:";
         const string authorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
         const string tokenEndpoint = "https://www.googleapis.com/oauth2/v4/token";
-        const string userInfoEndpoint = "https://ml.googleapis.com/v1/projects/nudge-161903/models";
+        const string ProjectID = "nudge-161903";
+        const string ModelName = "first_one";
+        const string ModelVersion = "version_1";
+
+        static string ListModelsURL = string.Format("https://ml.googleapis.com/v1/projects/{0}/models", ProjectID);
+        static string PredictURL = string.Format("https://ml.googleapis.com/v1/projects/{0},{1}:predict", ModelName, ModelVersion);
+        private string accessToken;
+
         public API(TextBox textBoxOutput)
         {
             this.textBoxOutput = textBoxOutput;
             textBoxOutput.Text = "";
         }
 
-        public void RunAPI()
+        public async Task TestAPI()
         {
-            client.BaseAddress = new Uri("https://ml.googleapis.com");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            // Makes a call to the Userinfo endpoint, and prints the results.
+            output("Making API Call to Model...");
 
-            authGoogleCloud();
-
-            Console.WriteLine(GetModelsAsync("v1/projects/nudge-161903/models"));
+            string json = await GetModelsAsync(ListModelsURL);
+            output(json);
+            JsonObject tokens = JsonObject.Parse(json);
+            string models = tokens.GetNamedArray("models").GetObjectAt(0).GetNamedString("name");
+            output("API Works! " + models.ToString());
         }
 
+        public async Task TestPredict()
+        {
+            // Makes a call to the Userinfo endpoint, and prints the results.
+            output("Making API Call to Model...");
+
+            string json = await GetPredictionAsync(ListModelsURL);
+            output(json);
+            JsonObject tokens = JsonObject.Parse(json);
+            string models = tokens.GetNamedArray("models").GetObjectAt(0).GetNamedString("name");
+            output("API Works! " + models.ToString());
+        }
+
+
+
+        ///==================== API Methods
+
+        async Task<String> GetModelsAsync(string path)
+        {
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            HttpResponseMessage response = client.GetAsync(path).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                ModelsJson = await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                output("API Fail! ");
+            }
+            return ModelsJson;
+        }
+
+        public class Inputs
+        {
+            public float TimeSpan { get; set; }
+            public float HashedForegroundApp { get; set; }
+            public float ActiveMouseTime { get; set; }
+            public float ActiveKeyboardTime { get; set; }
+
+        }
+
+
+        async Task<String> GetPredictionAsync(string path)
+        {
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+            // Test Data
+            Inputs input = new Inputs();
+            input.TimeSpan = 423.2f;
+            input.HashedForegroundApp = 0;
+            input.ActiveMouseTime = 124;
+            input.ActiveKeyboardTime = 3213125;
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(path, input);
+            if (response.IsSuccessStatusCode)
+            {
+                PredictJson = await response.Content.ReadAsAsync<String>();
+            }
+            else
+            {
+                output("API Fail! " + await response.Content.ReadAsAsync<String>());
+            }
+            return PredictJson;
+        }
+
+
+        ///==================== Auth Methods
         public void authGoogleCloud()
         {
             // Generates state and PKCE values.
@@ -175,14 +253,9 @@ namespace NudgeToaster
 
             // Sets the Authentication header of our HTTP client using the acquired access token.
             JsonObject tokens = JsonObject.Parse(responseString);
-            string accessToken = tokens.GetNamedString("access_token");
+            accessToken = tokens.GetNamedString("access_token");
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-            // Makes a call to the Userinfo endpoint, and prints the results.
-            output("Making API Call to Userinfo...");
-            HttpResponseMessage userinfoResponse = client.GetAsync(userInfoEndpoint).Result;
-            string userinfoResponseContent = await userinfoResponse.Content.ReadAsStringAsync();
-            output(userinfoResponseContent);
         }
 
         /// <summary>
@@ -238,31 +311,6 @@ namespace NudgeToaster
         }
 
 
-        ///==================== API Methods
 
-        async Task<String> GetModelsAsync(string path)
-        {
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-            {
-                ModelsJson = await response.Content.ReadAsStringAsync();
-            }
-            return ModelsJson;
-        }
-
-
-
-
-
-        //        async Task<float> GetPredictionAsync(string path)
-        //        {
-        //
-        //            HttpResponseMessage response = await client.GetAsync(path);
-        //            if (response.IsSuccessStatusCode)
-        //            {
-        //                Prob = await response.Content.ReadAsAsync<float>();
-        //            }
-        //            return Prob;
-        //        }
     }
 }
