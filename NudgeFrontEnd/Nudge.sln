@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NudgeToaster", "NudgeToaster\NudgeToaster.csproj", "{EFF36A7D-ED77-4832-A421-BCC461B5EDF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NudgeHarvester", "ForegroundAppKnower\NudgeHarvester.csproj", "{CE641D5F-C6CD-4E03-89DE-3D58028ABAE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NudgeHarvester", "NudgeHarvester\NudgeHarvester.csproj", "{CE641D5F-C6CD-4E03-89DE-3D58028ABAE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

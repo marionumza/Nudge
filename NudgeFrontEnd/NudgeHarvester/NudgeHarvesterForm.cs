@@ -43,7 +43,6 @@ namespace NudgeHarvester
 
     internal class HarvesterProgram
     {
-
         /// <summary>
         /// The cycle.
         /// </summary>
@@ -68,6 +67,9 @@ namespace NudgeHarvester
         /// The my mouse activity knower.
         /// </summary>
         private MouseActivityKnower myMouseActivityKnower = new MouseActivityKnower();
+
+        private KeyboardActivityKnower myKeyboardActivityKnower = new KeyboardActivityKnower();
+
 
         /// <summary>
         /// Gets the nudge harvester form.
@@ -125,6 +127,7 @@ namespace NudgeHarvester
             this.myAttentionSpanKnower.Increment(Cycle);
             this.NudgeHarvesterForm.OutputText("Current Foreground App: " + this.myForegroundAppKnower.GetForegroundApp());
             this.NudgeHarvesterForm.OutputText("Mouse Inactive For: " + this.myMouseActivityKnower.GetInactiveMouseElapsed() + "ms");
+            this.NudgeHarvesterForm.OutputText("Keyboard Inactive For: " + this.myKeyboardActivityKnower.GetInactiveKeyboardElapsed() + "ms");
             this.NudgeHarvesterForm.OutputText("Current Attention Span: " + this.myAttentionSpanKnower.GetAttentionSpan() + "ms");
             this.NudgeHarvesterForm.OutputText(string.Empty);
 
