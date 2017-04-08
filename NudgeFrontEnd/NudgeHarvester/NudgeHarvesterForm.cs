@@ -39,6 +39,25 @@ namespace NudgeHarvester
             this.outputBox.TopIndex = Math.Max(this.outputBox.Items.Count - visibleItems + 1, 0);
         }
 
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            notifyIcon1.Visible = false;
+            this.Dispose();
+        }
+
+        private void showLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+
+        }
+
+        private void NudgeHarvesterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+            e.Cancel = true;
+        }
+
     }
 
     internal class HarvesterProgram
@@ -96,8 +115,11 @@ namespace NudgeHarvester
             this.LoopTimer.Tick += this.TimerCallback;
             this.LoopTimer.Start();
 
+
             this.NudgeHarvesterForm.FormClosing += this.NudgeHarvesterFormOnFormClosing;
         }
+
+       
 
         /// <summary>
         /// The nudge harvester form on form closing.

@@ -1,9 +1,8 @@
 ﻿{
   "dependencies": {
-    "Google.Apis": "1.22.0",
-    "Google.Apis.CloudMachineLearningEngine.v1": "1.22.0.805",
-    "Google.Apis.Oauth2.v2": "1.22.0.672",
-    "Google.Apis.Prediction.v1_6": "1.22.0.496",
+    "Google.Apis": "1.24.1",
+    "Google.Apis.Oauth2.v2": "1.23.0.672",
+    "Google.Apis.Prediction.v1_6": "1.23.0.496",
     "Microsoft.AspNet.WebApi.Client": "5.2.3",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
     "Newtonsoft.Json": "10.0.1",

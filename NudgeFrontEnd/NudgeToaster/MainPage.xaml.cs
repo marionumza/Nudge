@@ -81,5 +81,10 @@ namespace NudgeToaster
         {
             api.TestPredict();
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

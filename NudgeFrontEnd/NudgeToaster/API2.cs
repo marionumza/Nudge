@@ -66,10 +66,10 @@ namespace NudgeToaster
             UserCredential credential;
             using (var stream = new FileStream("client_secrets.json", FileMode.Open, FileAccess.Read))
             {
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    new[] { PredictionService.Scope.Prediction },
-                    "user", CancellationToken.None);
+                //credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                //    GoogleClientSecrets.Load(stream).Secrets,
+                //    new[] { PredictionService.Scope.Prediction },
+                //    "user", CancellationToken.None);
             }
 
         }
