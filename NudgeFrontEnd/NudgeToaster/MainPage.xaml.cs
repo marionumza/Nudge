@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Notifications;
@@ -30,11 +33,21 @@ namespace NudgeToaster
         public MainPage()
         {
             this.InitializeComponent();
-            api = new API(this.textBoxOutput);
-            engine = new NudgeEngine();
+            api = new API(output);
+            engine = new NudgeEngine(output);
+            textBoxOutput.Text = "";
+
         }
 
-
+        /// <summary>
+        /// Appends the given string to the on-screen log, and the debug console.
+        /// </summary>
+        /// <param name="output">string to be appended</param>
+        public void output(string output)
+        {
+            textBoxOutput.Text = textBoxOutput.Text + output + Environment.NewLine;
+            Debug.WriteLine(output);
+        }
 
         private void auth_Click(object sender, RoutedEventArgs e)
         {
@@ -55,6 +68,22 @@ namespace NudgeToaster
         {
             engine.startEngine();
 
+        }
+
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+//            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
+            {
+                Name = "Yes",
+                TaskEntryPoint = "NotificationActionBackgroundTask.Yes"
+            };
+
+            builder.SetTrigger(new ToastNotificationActionTrigger());
+
+            BackgroundTaskRegistration registration = builder.Register();
         }
     }
 }

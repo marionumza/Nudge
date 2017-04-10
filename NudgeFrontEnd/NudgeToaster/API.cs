@@ -27,7 +27,7 @@ namespace NudgeToaster
         public String PredictJson { get; set; }
 
         public HttpClient client = new HttpClient();
-        private TextBox textBoxOutput;
+        private Action<String> output;
 
         /// <summary>
         /// OAuth 2.0 client configuration.
@@ -44,10 +44,9 @@ namespace NudgeToaster
         static string PredictURL = string.Format("https://ml.googleapis.com/v1/projects/{0},{1}:predict", ModelName, ModelVersion);
         private string accessToken;
 
-        public API(TextBox textBoxOutput)
+        public API(Action<String> output)
         {
-            this.textBoxOutput = textBoxOutput;
-            textBoxOutput.Text = "";
+            this.output = output;
         }
 
         public async Task TestAPI()
@@ -256,16 +255,6 @@ namespace NudgeToaster
             accessToken = tokens.GetNamedString("access_token");
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-        }
-
-        /// <summary>
-        /// Appends the given string to the on-screen log, and the debug console.
-        /// </summary>
-        /// <param name="output">string to be appended</param>
-        public void output(string output)
-        {
-            textBoxOutput.Text = textBoxOutput.Text + output + Environment.NewLine;
-            Debug.WriteLine(output);
         }
 
 

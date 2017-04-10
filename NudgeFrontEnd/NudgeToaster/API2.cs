@@ -18,28 +18,16 @@ namespace NudgeToaster
     using Google.Apis.Prediction.v1_6;
     class API2
     {
+        private Action<String> output;
 
 
         public float Prob { get; set; }
         public String ModelsJson { get; set; }
         public String PredictJson { get; set; }
 
-        private TextBox textBoxOutput;
-        public API2(TextBox textBoxOutput)
+        public API2(Action<String> textBoxOutput)
         {
-            this.textBoxOutput = textBoxOutput;
-            textBoxOutput.Text = "";
-        }
-
-
-        /// <summary>
-        /// Appends the given string to the on-screen log, and the debug console.
-        /// </summary>
-        /// <param name="output">string to be appended</param>
-        public void output(string output)
-        {
-            textBoxOutput.Text = textBoxOutput.Text + output + Environment.NewLine;
-            Debug.WriteLine(output);
+            this.output = output;
         }
 
 

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
+using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Notifications;
 using NotificationsExtensions;
@@ -9,9 +11,17 @@ namespace NudgeToaster
 {
     class NudgeEngine
     {
+        public NudgeEngine(Action<String> output)
+        {
+            this.output = output;
+        }
+
         private Timer engineTimer;
         private ToastContent nudgeToaster;
+        public Action<string> output;
         private const int cycle = 1000 * 60 * 5;
+
+
 
         private void NudgeEngineTimerCallback(object state)
         {
@@ -85,6 +95,24 @@ namespace NudgeToaster
             ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
         }
 
+    }
+
+
+    public sealed class NotificationActionBackgroundTask : IBackgroundTask
+    {
+        public void Run(IBackgroundTaskInstance taskInstance)
+        {
+            var details = taskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
+
+            if (details != null)
+            {
+                string arguments = details.Argument;
+                var userInput = details.UserInput;
+
+                // Perform tasks
+                Debug.WriteLine("YES!");
+            }
+        }
     }
 
 
