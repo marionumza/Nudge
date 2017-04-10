@@ -25,51 +25,20 @@ namespace NudgeToaster
     public sealed partial class MainPage : Page
     {
         private API api;
+        private NudgeEngine engine;
 
         public MainPage()
         {
             this.InitializeComponent();
             api = new API(this.textBoxOutput);
+            engine = new NudgeEngine();
         }
 
-        private void Show(ToastContent content)
-        {
-            ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
-        }
 
-        private void notif_Click(object sender, RoutedEventArgs e)
-        {
-            api.TestAPI();
-
-
-            String time = DateTime.Now.ToString("HH:mm tt");
-            Show(new ToastContent()
-            {
-                Visual = new ToastVisual()
-                {
-
-                    TitleText = new ToastText() { Text = "It's currently " + time },
-                    BodyTextLine1 = new ToastText() { Text = "Is this really what you want to be doing right now? " }
-                },
-
-                Launch = "394815",
-
-                Scenario = ToastScenario.Default,
-
-                Actions = new ToastActionsCustom()
-                {
-                    Buttons =
-                    {
-                        new ToastButton("Yes", "Yes" ),
-                        new ToastButton("No", "No")
-                    }
-                }
-            });
-        }
 
         private void auth_Click(object sender, RoutedEventArgs e)
         {
-         api.authGoogleCloud();
+            api.authGoogleCloud();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -84,6 +53,7 @@ namespace NudgeToaster
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            engine.startEngine();
 
         }
     }
