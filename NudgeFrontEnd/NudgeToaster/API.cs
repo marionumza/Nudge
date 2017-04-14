@@ -13,9 +13,6 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 namespace NudgeToaster
 {
     class API

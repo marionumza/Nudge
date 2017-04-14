@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Notifications;
+using Windows.UI.Popups;
 using NotificationsExtensions.Toasts;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -64,26 +65,14 @@ namespace NudgeToaster
             api.TestPredict();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
             engine.startEngine();
-
         }
-
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        
+        private  void Page_Loaded(object sender, RoutedEventArgs e)
         {
-//            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
-            {
-                Name = "Yes",
-                TaskEntryPoint = "NotificationActionBackgroundTask.Yes"
-            };
-
-            builder.SetTrigger(new ToastNotificationActionTrigger());
-
-            BackgroundTaskRegistration registration = builder.Register();
+            return;
         }
     }
 }

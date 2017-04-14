@@ -9,13 +9,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.UI.Xaml.Controls;
-using Google.Apis.Util.Store;
 
 namespace NudgeToaster
 {
 
-    using Google.Apis.Auth.OAuth2;
-    using Google.Apis.Prediction.v1_6;
     class API2
     {
         private Action<String> output;
@@ -51,7 +48,7 @@ namespace NudgeToaster
 
         public async Task authGoogleCloud()
         {
-            UserCredential credential;
+//            UserCredential credential;
             using (var stream = new FileStream("client_secrets.json", FileMode.Open, FileAccess.Read))
             {
                 //credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(

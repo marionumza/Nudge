@@ -21,18 +21,11 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        Category="windows.backgroundTasks"
-        EntryPoint="NotificationActionBackgroundTask.Yes">
-
-        <BackgroundTasks>
-          <Task Type="systemEvent" />
-        </BackgroundTasks>
-        
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="uwp.nudge">
-            <uap:DisplayName>Nudge</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTasks.NotificationActionBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="systemEvent" />
+          </BackgroundTasks>
+        </Extension>
       </Extensions>
     </Application>
   </Applications>

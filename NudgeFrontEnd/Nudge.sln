@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NudgeToaster", "NudgeToaster\NudgeToaster.csproj", "{EFF36A7D-ED77-4832-A421-BCC461B5EDF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NudgeHarvester", "NudgeHarvester\NudgeHarvester.csproj", "{CE641D5F-C6CD-4E03-89DE-3D58028ABAE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTasks", "BackgroundTask\BackgroundTasks.csproj", "{04006C75-6C85-494A-9DDA-12198009FF17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,22 @@ Global
 		{CE641D5F-C6CD-4E03-89DE-3D58028ABAE8}.Release|x64.Build.0 = Release|Any CPU
 		{CE641D5F-C6CD-4E03-89DE-3D58028ABAE8}.Release|x86.ActiveCfg = Release|Any CPU
 		{CE641D5F-C6CD-4E03-89DE-3D58028ABAE8}.Release|x86.Build.0 = Release|Any CPU
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Debug|ARM.ActiveCfg = Debug|ARM
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Debug|ARM.Build.0 = Debug|ARM
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Debug|x64.ActiveCfg = Debug|x64
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Debug|x64.Build.0 = Debug|x64
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Debug|x86.ActiveCfg = Debug|x86
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Debug|x86.Build.0 = Debug|x86
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Release|ARM.ActiveCfg = Release|ARM
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Release|ARM.Build.0 = Release|ARM
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Release|x64.ActiveCfg = Release|x64
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Release|x64.Build.0 = Release|x64
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Release|x86.ActiveCfg = Release|x86
+		{04006C75-6C85-494A-9DDA-12198009FF17}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
