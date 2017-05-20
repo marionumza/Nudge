@@ -72,27 +72,22 @@ namespace NudgeToaster
             api.TestPredict();
         }
 
-        private async void button_Click(object sender, RoutedEventArgs e)
-        {
-            runEngine();
-        }
-
-        Timer engineTimer;
-
-        private void runEngine()
-        {
-            engineTimer = new Timer(NudgeEngineTimerCallback, null, 0, engine.getCycle());
-        }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             return;
         }
 
-
-        private void NudgeEngineTimerCallback(object state)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
-            nudge();
+            runEngine();
+        }
+
+        Timer engineTimer;
+        private void runEngine()
+        {
+            // Start timer that performs call to nudge() after each cycle
+            engineTimer = new Timer(delegate { nudge(); }, null, 0, engine.getCycle());
         }
 
 
@@ -107,7 +102,7 @@ namespace NudgeToaster
                 return;
             }
             buildNotif();
-            Show(nudgeToaster);
+            Show(notif);
         }
 
         private static void Show(ToastContent content)
@@ -165,13 +160,13 @@ namespace NudgeToaster
             task?.Unregister(true);
         }
 
-        private ToastContent nudgeToaster;
+        private ToastContent notif;
 
         private void buildNotif()
         {
 
             String time = DateTime.Now.ToString("HH:mm tt");
-            nudgeToaster = new ToastContent
+            notif = new ToastContent
             {
                 ActivationType = ToastActivationType.Background,
                 Visual = new ToastVisual

@@ -16,12 +16,14 @@ namespace BackgroundTasks
 
                 if (arguments.Contains("Yes"))
                 {
-                    NudgeEngine.setCycle(1000 * 60 * 30);
+//                    NudgeEngine.setCycle(1000 * 60 * 30);
+                    NudgeEngine.setCycle(60 * 30);
                     Debug.WriteLine("Yes");
                 }
                 else
                 {
-                    NudgeEngine.setCycle(1000 * 60 * 5);
+//                    NudgeEngine.setCycle(1000 * 60 * 5);
+                    NudgeEngine.setCycle(60 * 5);
                     Debug.WriteLine("No");
                 }
             }
