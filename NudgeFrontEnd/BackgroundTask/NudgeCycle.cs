@@ -18,7 +18,7 @@ namespace BackgroundTasks
     public sealed class NudgeCycle
     {
 
-        static int defaultCycle = 6;
+        static int defaultCycle = 60 * 15;
         static NudgeStore nudgeStore = new NudgeStore();
         static NudgeCycle nudgeCycle = new NudgeCycle();
 
@@ -40,7 +40,7 @@ namespace BackgroundTasks
             }
             else // Creating file for first time
             {
-                
+
                 setCycle(defaultCycle);
             }
         }
