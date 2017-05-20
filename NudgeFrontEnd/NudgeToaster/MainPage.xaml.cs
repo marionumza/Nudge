@@ -33,13 +33,13 @@ namespace NudgeToaster
     public sealed partial class MainPage : Page
     {
         private API api;
-        private NudgeEngine engine;
+        private NudgeCycle nudgeCycle;
 
         public MainPage()
         {
             this.InitializeComponent();
             api = new API(output);
-            engine = new NudgeEngine();
+            nudgeCycle = new NudgeCycle();
             textBoxOutput.Text = "";
 
         }
@@ -80,6 +80,7 @@ namespace NudgeToaster
 
         private async void button_Click(object sender, RoutedEventArgs e)
         {
+            nudgeCycle.loadCycle();
             runEngine();
         }
 
@@ -87,7 +88,18 @@ namespace NudgeToaster
         private void runEngine()
         {
             // Start timer that performs call to nudge() after each cycle
-            engineTimer = new Timer(delegate { nudge(); }, null, 0, engine.getCycle());
+            int tick = 0;
+            engineTimer = new Timer(delegate
+            {
+                tick += 1;
+                Debug.WriteLine("tick " + tick + " / " + NudgeCycle.getCycle());
+                if (tick >= NudgeCycle.getCycle())
+                {
+                    nudge();
+                    engineTimer.Dispose();
+                    runEngine();
+                }
+            }, null, 1, 1000);
         }
 
 
