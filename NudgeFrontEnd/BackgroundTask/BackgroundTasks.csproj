@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="NotificationActionBackgroundTask.cs" />
     <Compile Include="NudgeCycle.cs" />
+    <Compile Include="NudgeStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

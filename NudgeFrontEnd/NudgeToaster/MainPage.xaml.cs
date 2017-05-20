@@ -80,7 +80,6 @@ namespace NudgeToaster
 
         private async void button_Click(object sender, RoutedEventArgs e)
         {
-            nudgeCycle.loadCycle();
             runEngine();
         }
 
@@ -89,11 +88,12 @@ namespace NudgeToaster
         {
             // Start timer that performs call to nudge() after each cycle
             int tick = 0;
+            NudgeCycle.getCycleObj().loadCycle();
             engineTimer = new Timer(delegate
             {
                 tick += 1;
-                Debug.WriteLine("tick " + tick + " / " + NudgeCycle.getCycle());
-                if (tick >= NudgeCycle.getCycle())
+                Debug.WriteLine("tick " + tick + " / " + NudgeCycle.getCycleObj().getCycle());
+                if (tick >= NudgeCycle.getCycleObj().getCycle())
                 {
                     nudge();
                     engineTimer.Dispose();

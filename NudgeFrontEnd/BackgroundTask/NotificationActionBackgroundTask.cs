@@ -18,15 +18,13 @@ namespace BackgroundTasks
                 {
                     Debug.WriteLine("Yes");
                     //                    NudgeCycle.setCycle(1000 * 60 * 30);
-                    NudgeCycle.setCycle(60 * 30);
-                    NudgeCycle.getCycle();
-
+                    NudgeCycle.getCycleObj().setCycle(60 * 30);
 
                 }
                 else
                 {
                     //                    NudgeCycle.setCycle(1000 * 60 * 5);
-                    NudgeCycle.setCycle(60 * 5);
+                    NudgeCycle.getCycleObj().setCycle(60 * 5);
                     Debug.WriteLine("No");
                 }
             }
