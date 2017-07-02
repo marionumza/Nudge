@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="NudgeToaster" Publisher="CN=Sammy" Version="1.0.14.0" />
+  <Identity Name="NudgeToaster" Publisher="CN=Sammy" Version="1.0.28.0" />
   <mp:PhoneIdentity PhoneProductId="aeb928ed-f554-40b4-a08c-eb5b9efced16" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>NudgeToaster</DisplayName>
