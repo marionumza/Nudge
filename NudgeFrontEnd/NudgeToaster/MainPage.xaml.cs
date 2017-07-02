@@ -34,6 +34,8 @@ namespace NudgeToaster
     {
         private API api;
         private NudgeCycle nudgeCycle;
+        private NudgeNotifications nudgeNotifications = new NudgeNotifications();
+        Timer engineTimer;
 
         public MainPage()
         {
@@ -41,6 +43,7 @@ namespace NudgeToaster
             api = new API(output);
             nudgeCycle = new NudgeCycle();
             textBoxOutput.Text = "";
+            nudgeNotifications.buildNotif();
 
         }
 
@@ -52,7 +55,7 @@ namespace NudgeToaster
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                this.textBoxOutput.Text = output;
+                this.textBoxOutput.Text += output + "\n";
             });
             Debug.WriteLine(output);
         }
@@ -67,14 +70,10 @@ namespace NudgeToaster
             api.ProcessAuth(e);
         }
 
-        private void PredictButton_Click(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            api.TestPredict();
-        }
+         await   RegisterBackgroundTask();
 
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
             return;
         }
 
@@ -83,7 +82,6 @@ namespace NudgeToaster
             runEngine();
         }
 
-        Timer engineTimer;
         private void runEngine()
         {
             // Start timer that performs call to nudge() after each cycle
@@ -91,15 +89,19 @@ namespace NudgeToaster
             NudgeCycle.getCycleObj().loadCycle();
             engineTimer = new Timer(delegate
             {
+                // 1 tick = 1 second
                 tick += 1;
-                Debug.WriteLine("tick " + tick + " / " + NudgeCycle.getCycleObj().getCycle());
+                NudgeCycle.getCycleObj().loadCycle();
+                output("tick " + tick + " / " + NudgeCycle.getCycleObj().getCycle());
                 if (tick >= NudgeCycle.getCycleObj().getCycle())
                 {
+                    // Nudge and reset
                     nudge();
                     engineTimer.Dispose();
-                    runEngine();
+                    engineTimer = null;
                 }
-            }, null, 1, 1000);
+            }, null, 1, 1500);
+
         }
 
 
@@ -107,19 +109,8 @@ namespace NudgeToaster
         {
             // Clear all existing notifications
             ToastNotificationManager.History.Clear();
-            // Register background task
-            if (!await RegisterBackgroundTask())
-            {
-                await new MessageDialog("ERROR: Couldn't register background task.").ShowAsync();
-                return;
-            }
-            buildNotif();
-            Show(notif);
-        }
 
-        private static void Show(ToastContent content)
-        {
-            ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
+            nudgeNotifications.ShowNotification();
         }
 
         private static string BACKGROUND_ENTRY_POINT = typeof(NotificationActionBackgroundTask).FullName;
@@ -127,6 +118,7 @@ namespace NudgeToaster
 
         public async Task<bool> RegisterBackgroundTask()
         {
+            output("Registering Background Task...");
             // Unregister any previous exising background task
             UnregisterBackgroundTask();
 
@@ -145,84 +137,35 @@ namespace NudgeToaster
             };
 
             // Set trigger for Toast History Changed
+            builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent,false ));
             builder.SetTrigger(new ToastNotificationActionTrigger());
 
 
             // And register the background task
+            builder.AddCondition(new SystemCondition(SystemConditionType.UserPresent));
             registration = builder.Register();
-            registration.Progress += OnProgress;
             registration.Completed += RegistrationOnCompleted;
             return true;
         }
 
         private void RegistrationOnCompleted(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
         {
-            output("Completed");
+            output("Registration of BackgroundTasks Completed");
+            if (engineTimer == null)
+            {
+                runEngine();
+            }
         }
 
-        private void OnProgress(IBackgroundTaskRegistration task, BackgroundTaskProgressEventArgs args)
-        {
-            var progress = "Progress: " + args.Progress + "%";
-            output(progress);
-        }
-
-        private static void UnregisterBackgroundTask()
+        private void UnregisterBackgroundTask()
         {
             var task = BackgroundTaskRegistration.AllTasks.Values.FirstOrDefault(i => i.Name.Equals(BACKGROUND_ENTRY_POINT));
             task?.Unregister(true);
+            output("Unregistered BackgroundTasks");
+
         }
 
-        private ToastContent notif;
 
-        private void buildNotif()
-        {
 
-            String time = DateTime.Now.ToString("HH:mm tt");
-            notif = new ToastContent
-            {
-                ActivationType = ToastActivationType.Background,
-                Visual = new ToastVisual
-                {
-                    BindingGeneric = new ToastBindingGeneric()
-                    {
-                        Children =
-                        {
-                            new AdaptiveText()
-                            {
-                                Text = "It's currently " + time,
-                                HintStyle = AdaptiveTextStyle.Header
-                            },
-                            new AdaptiveText()
-                            {
-                                Text = "Is this really what you want to be doing right now? ",
-                                HintStyle = AdaptiveTextStyle.Body,
-                                HintWrap = true
-                            },
-                            new AdaptiveImage()
-                            {
-                                Source = "Assets/Nudge.png"
-                            }
-
-                        }
-                    }
-                },
-                Launch = "394815",
-                Scenario = ToastScenario.Default,
-                Actions = new ToastActionsCustom
-                {
-                    Buttons =
-                    {
-                        new ToastButton("Yes", "Yes" )
-                        {
-                            ActivationType = ToastActivationType.Background
-                        },
-                        new ToastButton("No", "No")
-                        {
-                            ActivationType = ToastActivationType.Background
-                        }
-                    }
-                }
-            };
-        }
     }
 }

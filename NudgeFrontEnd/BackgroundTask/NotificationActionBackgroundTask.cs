@@ -13,16 +13,17 @@ namespace BackgroundTasks
             {
                 string arguments = details.Argument;
                 var userInput = details.UserInput;
+                NudgeCycle.getCycleObj().setTaskInstance(taskInstance);
 
                 if (arguments.Contains("Yes"))
                 {
-                    Debug.WriteLine("Yes");
+                    Debug.WriteLine("Yes Cycle: " + 60 * 30);
                     NudgeCycle.getCycleObj().setCycle(60 * 30);
 
                 }
                 else
                 {
-                    Debug.WriteLine("No");
+                    Debug.WriteLine("No Cycle: " + 60 * 15);
                     NudgeCycle.getCycleObj().setCycle(60 * 15);
                 }
             }

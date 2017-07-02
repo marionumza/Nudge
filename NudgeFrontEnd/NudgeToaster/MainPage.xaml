@@ -5,7 +5,8 @@
     xmlns:local="using:NudgeToaster"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="210,0,213,0">
         <Grid.RowDefinitions>
@@ -14,9 +15,9 @@
             <RowDefinition Height="41*"/>
             <RowDefinition Height="292*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="textBoxOutput" Height="436" Margin="54,248,59,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.RowSpan="4"/>
+        <TextBox x:Name="textBoxOutput" Height="436" Margin="54,248,59,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.RowSpan="4"/>
         <Button x:Name="auth_button" Content="Auth" HorizontalAlignment="Right" Margin="0,34,145,0" VerticalAlignment="Top" Height="81" Click="auth_Click" Width="272"/>
-        <Button x:Name="PredictButton" Content="Predict" HorizontalAlignment="Stretch" Margin="440,135,149,0" VerticalAlignment="Top" Height="80" Click="PredictButton_Click"/>
+        <Button x:Name="PredictButton" Content="Predict" HorizontalAlignment="Stretch" Margin="440,135,149,0" VerticalAlignment="Top" Height="80"/>
         <Button x:Name="StartNudge" Content="Start Nudge" HorizontalAlignment="Stretch" Margin="140,34,445,0" VerticalAlignment="Top" Height="81" Click="button_Click"/>
 
     </Grid>
