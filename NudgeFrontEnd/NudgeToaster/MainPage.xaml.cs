@@ -37,6 +37,7 @@ namespace NudgeToaster
         private API api;
         private NudgeCycle nudgeCycle;
         private NudgeNotifications nudgeNotifications = new NudgeNotifications();
+        private NudgeHarvesterConnection nudgeHarvesterConnection;
 
         public MainPage()
         {
@@ -45,6 +46,8 @@ namespace NudgeToaster
             nudgeCycle = new NudgeCycle();
             textBoxOutput.Text = "";
             nudgeNotifications.buildNotif();
+            nudgeHarvesterConnection = new NudgeHarvesterConnection(this);
+            nudgeHarvesterConnection.connectToHarvester();
             ApplicationView.PreferredLaunchViewSize = new Size(704, 885);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
@@ -125,7 +128,7 @@ namespace NudgeToaster
         }
 
 
-        public void nudge()
+        private void nudge()
         {
             // Clear all existing notifications
             ToastNotificationManager.History.Clear();
@@ -136,7 +139,7 @@ namespace NudgeToaster
         private static string BACKGROUND_ENTRY_POINT = typeof(NotificationActionBackgroundTask).FullName;
         private BackgroundTaskRegistration registration;
 
-        public async Task<bool> RegisterBackgroundTask()
+        private async Task<bool> RegisterBackgroundTask()
         {
             output("Registering Background Task...");
             // Unregister any previous exising background task
