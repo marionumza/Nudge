@@ -106,23 +106,26 @@ namespace NudgeHarvester
             this.NudgeHarvesterForm.OutputText("Keyboard Inactive For: " + this.myKeyboardActivityKnower.GetInactiveKeyboardElapsed() + "ms");
             this.NudgeHarvesterForm.OutputText("Current Attention Span: " + this.myAttentionSpanKnower.GetAttentionSpan() + "ms");
             this.NudgeHarvesterForm.OutputText(string.Empty);
-            sendToClients(this.myForegroundAppKnower.GetForegroundApp());
+            sendToClients("Hello!");
         }
 
         private IPEndPoint sending_end_point;
         Boolean exception_thrown = false;
         private UdpClient sending_socket;
         private UdpClient listener;
-
+        IPAddress talkAddress = IPAddress.Parse("192.168.2.15");
 
         public async void startUdpServer(int listenPort, int talkPort)
         {
 
             // Setup UDP Server 
             listener = new UdpClient(listenPort);
-            listener.DontFragment = true;
 
             this.talkPort = talkPort;
+            sending_socket = new UdpClient();
+            sending_socket.DontFragment = true;
+            sending_end_point = new IPEndPoint(talkAddress, this. talkPort);
+            sending_socket.Connect(sending_end_point);
 
             this.NudgeHarvesterForm.OutputText("Started listening on port: " + listener.Client.AddressFamily.ToString());
             await startListening();
@@ -143,26 +146,13 @@ namespace NudgeHarvester
             }
         }
 
-        IPAddress localhost = IPAddress.Parse("127.0.0.1");
         public async void sendToClients(string message)
         {
             // Setup UDP Talker
-            //sending_socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            //talkPort = 11123;
-            sending_end_point = new IPEndPoint(localhost, talkPort);
             byte[] send_buffer = Encoding.ASCII.GetBytes(message);
-            //SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-            ////args.RemoteEndPoint = sending_end_point;
-            //args.SetBuffer(send_buffer, 0, send_buffer.Length);
-            //args.DisconnectReuseSocket = false;
-
-            //sending_socket.Bind(sending_end_point);
-            sending_socket = new UdpClient();
-            sending_socket.Connect(sending_end_point);
             try
             {
                 await sending_socket.SendAsync(send_buffer, send_buffer.Length);
-                //sending_socket.SendToAsync(args);
                 this.NudgeHarvesterForm.OutputText("<< Sending to address:" + sending_end_point.Address + " port: " + sending_end_point.Port);
             }
             catch (Exception send_exception)

@@ -28,11 +28,10 @@ namespace NudgeToaster
 
         public void connectToHarvester()
         {
-            socketListener.MessageReceived += MessageReceived;
-
 
             try
             {
+                socketListener.MessageReceived += MessageReceived;
                 startListening();
 
             }
@@ -59,7 +58,7 @@ namespace NudgeToaster
         {
 
             // Set local IP
-            await socketListener.BindEndpointAsync(new HostName("127.0.0.1"), "22222");
+            await socketListener.BindEndpointAsync(new HostName("192.168.2.22"),"22222");
             mainPage.output("Listening: " + socketListener.Information.LocalAddress + " " + socketListener.Information.LocalPort);
 
         }

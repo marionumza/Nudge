@@ -15,13 +15,15 @@ namespace NudgeHarvester
 
     public partial class NudgeHarvesterForm : System.Windows.Forms.Form
     {
+        private HarvesterProgram havester;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NudgeHarvesterForm"/> class.
         /// </summary>
         public NudgeHarvesterForm()
         {
             this.InitializeComponent();
-            HarvesterProgram havester = new HarvesterProgram(this);
+            havester = new HarvesterProgram(this);
             havester.startUdpServer(11111, 22222); // (Listen, Talk)
         }
 
@@ -56,6 +58,10 @@ namespace NudgeHarvester
             e.Cancel = true;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            havester.sendToClients("Hello");
+        }
     }
 
 }
