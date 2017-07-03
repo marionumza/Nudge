@@ -106,7 +106,7 @@ namespace NudgeHarvester
             this.NudgeHarvesterForm.OutputText("Keyboard Inactive For: " + this.myKeyboardActivityKnower.GetInactiveKeyboardElapsed() + "ms");
             this.NudgeHarvesterForm.OutputText("Current Attention Span: " + this.myAttentionSpanKnower.GetAttentionSpan() + "ms");
             this.NudgeHarvesterForm.OutputText(string.Empty);
-            sendToClients("Hello!");
+            sendToClients("Ping!");
         }
 
         private IPEndPoint sending_end_point;
@@ -124,7 +124,7 @@ namespace NudgeHarvester
             this.talkPort = talkPort;
             sending_socket = new UdpClient();
             sending_socket.DontFragment = true;
-            sending_end_point = new IPEndPoint(talkAddress, this. talkPort);
+            sending_end_point = new IPEndPoint(talkAddress, this.talkPort);
             sending_socket.Connect(sending_end_point);
 
             this.NudgeHarvesterForm.OutputText("Started listening on port: " + listener.Client.AddressFamily.ToString());
