@@ -71,7 +71,8 @@ namespace NudgeToaster
 
         private void auth_Click(object sender, RoutedEventArgs e)
         {
-            api.authGoogleCloud();
+            //api.authGoogleCloud();
+            nudgeHarvesterConnection.pingHarvester();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -94,10 +95,16 @@ namespace NudgeToaster
         private  async void RequestExtendedSession()
         {
             var newSession = new ExtendedExecutionSession();
+            newSession.Revoked += RevokedExtendedSession;
             newSession.Reason = ExtendedExecutionReason.Unspecified;
             newSession.Description = "Raising periodic toasts";
             ExtendedExecutionResult result = await newSession.RequestExtensionAsync();
             output("Extended Session Result: " + result.ToString());
+        }
+
+        private void RevokedExtendedSession(object sender, ExtendedExecutionRevokedEventArgs args)
+        {
+            RequestExtendedSession();
         }
 
         private bool isTimerRunning;
@@ -105,7 +112,7 @@ namespace NudgeToaster
         private async void runEngine()
         {
             // Start timer that performs call to nudge() after each cycle
-            RequestExtendedSession();
+            //RequestExtendedSession();
             isTimerRunning = true;
             int tick = 0;
             NudgeCycle.getCycleObj().loadCycle();

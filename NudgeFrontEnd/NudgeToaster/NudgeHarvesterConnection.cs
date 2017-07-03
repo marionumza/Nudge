@@ -7,30 +7,34 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Networking;
 using Windows.Networking.Sockets;
+using Windows.Storage.Streams;
 
 namespace NudgeToaster
 {
     class NudgeHarvesterConnection
     {
-        private DatagramSocket socket;
+        private DatagramSocket socketListener;
         private MainPage mainPage;
+        private DataWriter writer;
+        private DatagramSocket socketTalker;
 
         public NudgeHarvesterConnection(MainPage page)
         {
-            socket = new DatagramSocket();
+            socketListener = new DatagramSocket();
+            socketTalker = new DatagramSocket();
+
             this.mainPage = page;
         }
 
-        public async void connectToHarvester()
+        public void connectToHarvester()
         {
-            socket.Control.DontFragment = true;
-            socket.MessageReceived += MessageReceived;
+            socketListener.MessageReceived += MessageReceived;
+
 
             try
             {
-                // Connect to the server (by default, the listener we created in the previous step).
-                await socket.ConnectAsync(new HostName("127.0.0.1"), "11012");
-                mainPage.output("Connected: " + socket.Information.LocalAddress + ":" + socket.Information.LocalPort);
+                startListening();
+
             }
             catch (Exception exception)
             {
@@ -44,7 +48,48 @@ namespace NudgeToaster
             }
         }
 
-        private void MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
+        private async void startTalker()
+        {
+            // Connect to the server
+            await socketTalker.ConnectAsync(new HostName("127.0.0.1"), "11111");
+            mainPage.output("Connected: " + socketTalker.Information.RemoteAddress + " " + socketTalker.Information.RemotePort);
+        }
+
+        private async void startListening()
+        {
+
+            // Set local IP
+            await socketListener.BindEndpointAsync(new HostName("127.0.0.1"), "22222");
+            mainPage.output("Listening: " + socketListener.Information.LocalAddress + " " + socketListener.Information.LocalPort);
+
+        }
+
+        public async void pingHarvester()
+        {
+            startTalker();
+            writer = new DataWriter(socketTalker.OutputStream);
+            writer.WriteString("Ping!");
+
+            try
+            {
+                await writer.StoreAsync();
+                mainPage.output("Sent message successfully.");
+            }
+            catch (Exception exception)
+            {
+                // If this is an unknown status it means that the error if fatal and retry will likely fail.
+                if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown)
+                {
+                    throw;
+                }
+                mainPage.output("Send failed with error" + exception.Message);
+
+            }
+            writer.DetachStream();
+            writer.Dispose();
+        }
+
+        private async void MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
             try
             {
@@ -52,9 +97,11 @@ namespace NudgeToaster
                 uint stringLength = args.GetDataReader().UnconsumedBufferLength;
                 string receivedMessage = args.GetDataReader().ReadString(stringLength);
 
-               mainPage.output(
-                    "Received data from remote peer: \"" +
-                    receivedMessage + "\"");
+                mainPage.output(
+                     "Received data from remote peer: \"" +
+                     receivedMessage + "\"");
+                //socketListener.Dispose();
+                //startListening();
             }
             catch (Exception exception)
             {

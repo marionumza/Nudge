@@ -22,7 +22,7 @@ namespace NudgeHarvester
         {
             this.InitializeComponent();
             HarvesterProgram havester = new HarvesterProgram(this);
-            havester.startUdpServer(11011, 11012); // (Listen, Talk)
+            havester.startUdpServer(11111, 22222); // (Listen, Talk)
         }
 
         /// <summary>
@@ -37,7 +37,6 @@ namespace NudgeHarvester
             int visibleItems = this.outputBox.ClientSize.Height / this.outputBox.ItemHeight;
             this.outputBox.TopIndex = Math.Max(this.outputBox.Items.Count - visibleItems + 1, 0);
         }
-
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
