@@ -80,50 +80,17 @@ def build_estimator(config, embedding_size=8, hidden_units=None):
   #age_buckets = tf.feature_column.bucketized_column(
   #    age, boundaries=[18, 25, 30, 35, 40, 45, 50, 55, 60, 65])
 
-  # Wide columns and deep columns.
-  wide_columns = [
-      # Interactions between different categorical features can also
-      # be added as new virtual features.
-      tf.feature_column.crossed_column(
-          ['education', 'occupation'], hash_bucket_size=int(1e4)),
-      tf.feature_column.crossed_column(
-          [age_buckets, race, 'occupation'], hash_bucket_size=int(1e6)),
-      tf.feature_column.crossed_column(
-          ['native_country', 'occupation'], hash_bucket_size=int(1e4)),
-      gender,
-      native_country,
-      education,
-      occupation,
-      workclass,
-      marital_status,
-      relationship,
-      age_buckets,
-  ]
-
-  deep_columns = [
-      # Use indicator columns for low dimensional vocabularies
-      tf.feature_column.indicator_column(workclass),
-      tf.feature_column.indicator_column(education),
-      tf.feature_column.indicator_column(marital_status),
-      tf.feature_column.indicator_column(gender),
-      tf.feature_column.indicator_column(relationship),
-      tf.feature_column.indicator_column(race),
-
-      # Use embedding columns for high dimensional vocabularies
-      tf.feature_column.embedding_column(
-          native_country, dimension=embedding_size),
-      tf.feature_column.embedding_column(occupation, dimension=embedding_size),
-      age,
-      education_num,
-      capital_gain,
-      capital_loss,
-      hours_per_week,
+  # Feature columns.
+  feature_columns = [
+      mouse_activity,
+      keyboard_activity,
+      time_last_request,
+      foreground_app
   ]
 
   return tf.contrib.learn.DNNLinearCombinedClassifier(
       config=config,
-      linear_feature_columns=wide_columns,
-      dnn_feature_columns=deep_columns,
+      feature_columns=feature_columns,
       dnn_hidden_units=hidden_units or [100, 70, 50, 25],
       fix_global_step_increment_bug=True
   )
