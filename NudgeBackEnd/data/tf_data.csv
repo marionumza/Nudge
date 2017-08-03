@@ -1,3 +1,4 @@
+mouse_activity,keyboard_activity,time_last_request,foreground_app,productive
 4,120,30000,EXCEL,1
 12,16,15000,EXCEL,1
 1122,41,30000,EXCEL,1
