@@ -27,12 +27,12 @@ feature_columns = [tf.contrib.layers.real_valued_column("", dimension=4)]
 # Build 3 layer DNN with 10, 20, 10 units respectively.
 classifier = tf.contrib.learn.DNNClassifier(hidden_units=[10, 10],
                                             n_classes=2,
-                                            model_dir="diabetes_model",feature_columns=feature_columns)
+                                            model_dir="../data/model",feature_columns=feature_columns)
 print('Training Neural Network....')
 # Fit model.
 classifier.fit(x=training_set.data,
                y=training_set.target,
-               steps=100000)
+               steps=1000)
 print('Training completed!')
 
 # Evaluate accuracy.
@@ -43,7 +43,7 @@ print('Accuracy: {0:f}'.format(accuracy_score))
 
 # Classify two new patient samples.
 new_samples = np.array(
-    [[0,2,31638,'devenv']], dtype=float)
+    [[0,0,31638,124515213]], dtype=float)
 y = classifier.predict(new_samples,as_iterable=False)
 
 print('Inputs: {}'.format(new_samples))
