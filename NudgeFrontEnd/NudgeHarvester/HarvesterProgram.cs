@@ -102,6 +102,7 @@ namespace NudgeHarvester
         {
             this.myAttentionSpanKnower.Increment(Cycle);
             this.NudgeHarvesterForm.OutputText("Current Foreground App: " + this.myForegroundAppKnower.GetForegroundApp());
+            this.NudgeHarvesterForm.OutputText("Current Foreground App Int: " + this.myForegroundAppKnower.GetForegroundApp().GetHashCode());
             this.NudgeHarvesterForm.OutputText("Mouse Inactive For: " + this.myMouseActivityKnower.GetInactiveMouseElapsed() + "ms");
             this.NudgeHarvesterForm.OutputText("Keyboard Inactive For: " + this.myKeyboardActivityKnower.GetInactiveKeyboardElapsed() + "ms");
             this.NudgeHarvesterForm.OutputText("Current Attention Span: " + this.myAttentionSpanKnower.GetAttentionSpan() + "ms");
