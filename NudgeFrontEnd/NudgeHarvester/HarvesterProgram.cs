@@ -68,23 +68,10 @@ namespace NudgeHarvester
             this.LoopTimer.Start();
 
 
-            this.NudgeHarvesterForm.FormClosing += this.NudgeHarvesterFormOnFormClosing;
-        }
-
-
-
-        /// <summary>
-        /// The nudge harvester form on form closing.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="formClosingEventArgs">
-        /// The form closing event args.
-        /// </param>
-        private void NudgeHarvesterFormOnFormClosing(object sender, FormClosingEventArgs formClosingEventArgs)
-        {
-            this.LoopTimer.Dispose();
+            Application.ApplicationExit += (sender, args) =>
+            {
+                this.LoopTimer.Dispose();
+            };
         }
 
         /// <summary>
