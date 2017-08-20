@@ -31,6 +31,9 @@ namespace NudgeToaser
 
             Console.WriteLine("Started listening on port: " + listener.Client.AddressFamily.ToString());
             await startListening();
+
+            
+            
         }
 
         private async Task startListening()
@@ -44,6 +47,33 @@ namespace NudgeToaser
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+        }
+
+        public async void sendToClients(string message)
+        {
+            // Setup UDP Talker
+            byte[] send_buffer = Encoding.ASCII.GetBytes(message);
+            try
+            {
+                await sending_socket.SendAsync(send_buffer, send_buffer.Length);
+                Console.WriteLine("<< Sending to address:" + sending_end_point.Address + " port: " + sending_end_point.Port);
+            }
+            catch (Exception send_exception)
+            {
+                exception_thrown = true;
+                Console.WriteLine(" Exception " + send_exception.Message);
+            }
+
+
+            if (exception_thrown == false)
+            {
+                Console.WriteLine("Message has been sent to the broadcast address");
+            }
+            else
+            {
+                exception_thrown = false;
+                Console.WriteLine("The exception indicates the message was not sent.");
             }
         }
 

@@ -20,16 +20,18 @@ namespace NudgeToaser
     /// </summary>
     public partial class MainWindow : Window
     {
+        private HarvesterConnection connection;
+
         public MainWindow()
         {
             InitializeComponent();
-            HarvesterConnection connection = new HarvesterConnection();
+            connection = new HarvesterConnection();
             connection.connectToHarvester();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            connection.sendToClients("YES");
         }
     }
 }
