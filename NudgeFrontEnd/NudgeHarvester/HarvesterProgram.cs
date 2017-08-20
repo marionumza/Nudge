@@ -52,8 +52,6 @@ namespace NudgeHarvester
         public Timer LoopTimer { get; set; }
 
 
-        private int talkPort;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HarvesterProgram"/> class.
         /// </summary>
@@ -114,15 +112,16 @@ namespace NudgeHarvester
         Boolean exception_thrown = false;
         private UdpClient sending_socket;
         private UdpClient listener;
-        IPAddress talkAddress = IPAddress.Parse("192.168.2.15");
+        IPAddress talkAddress = IPAddress.Parse("127.0.0.1");
+        private int talkPort = 22222;
+        private int listenPort = 11111;
 
-        public async void startUdpServer(int listenPort, int talkPort)
+        public async void startUdpServer()
         {
 
             // Setup UDP Server 
             listener = new UdpClient(listenPort);
 
-            this.talkPort = talkPort;
             sending_socket = new UdpClient();
             sending_socket.DontFragment = true;
             sending_end_point = new IPEndPoint(talkAddress, this.talkPort);
@@ -174,10 +173,6 @@ namespace NudgeHarvester
             }
         }
 
-        //private async void sendToCallback(IAsyncResult ar)
-        //{
-        //    sending_socket.EndSendTo(ar);
-        //}
     }
 
 }

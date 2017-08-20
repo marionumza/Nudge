@@ -24,7 +24,7 @@ namespace NudgeHarvester
         {
             this.InitializeComponent();
             havester = new HarvesterProgram(this);
-            havester.startUdpServer(11111, 22222); // (Listen, Talk)
+            havester.startUdpServer();
         }
 
         /// <summary>
