@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NudgeToaser"
         mc:Ignorable="d"
-        Title="Are you doing what you are supposed to be doing?" Height="94.983" Width="525">
+        Title="Are you doing what you are supposed to be doing?" Height="200" Width="525">
     <Grid>
-        <Button Content="Yes" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="Button_Click"/>
-        <Button Content="Yes" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="Button_Click"/>
-        <Button Content="No" HorizontalAlignment="Left" Margin="278,10,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="Button_Click"/>
+        <Button Content="" HorizontalAlignment="Left" Margin="164,10,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="ButtonClick">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="StartButton" Content="Start Nudge" HorizontalAlignment="Left" Margin="163,74,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="ButtonClick">
+
+        </Button>
 
     </Grid>
 </Window>
