@@ -56,6 +56,8 @@ namespace NudgeUtilities
         /// </summary>
         private IPAddress talkAddress = IPAddress.Parse("127.0.0.1");
 
+        private RecieveDelegate receiveCallback;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UdpEngine"/> class.
         /// </summary>
@@ -65,10 +67,11 @@ namespace NudgeUtilities
         /// <param name="listenPort">
         /// The listen port.
         /// </param>
-        public UdpEngine(int talkPort, int listenPort)
+        public UdpEngine(int talkPort, int listenPort, RecieveDelegate callback)
         {
             this.talkPort = talkPort;
             this.listenPort = listenPort;
+            this.receiveCallback = callback;
         }
 
         /// <summary>
@@ -90,6 +93,8 @@ namespace NudgeUtilities
 
         }
 
+        public delegate void RecieveDelegate(string received);
+
         /// <summary>
         /// The start listening.
         /// </summary>
@@ -101,7 +106,9 @@ namespace NudgeUtilities
             try
             {
                 UdpReceiveResult receiveResult = await this.listenerUdpClient.ReceiveAsync();
-                Console.WriteLine(">> Received: " + Encoding.ASCII.GetString(receiveResult.Buffer));
+                string receivedString = Encoding.ASCII.GetString(receiveResult.Buffer);
+                receiveCallback(receivedString);
+                Console.WriteLine(">> Received: " + receivedString);
                 await this.StartListeningAsync();
             }
             catch (Exception e)
