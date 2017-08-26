@@ -36,7 +36,12 @@ namespace NudgeHarvester
             {
                 foregroundProcess = this.GetRealProcess(foregroundProcess);
             }
-            return foregroundProcess.ProcessName;
+            if (foregroundProcess == null)
+            {
+                this.GetForegroundApp();
+            }
+
+            return foregroundProcess?.ProcessName;
         }
 
         /// <summary>

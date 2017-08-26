@@ -16,20 +16,22 @@ namespace NudgeToaser
 {
     using System.Threading;
 
+    using NudgeUtilities;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// The connection.
-        /// </summary>
-        private HarvesterConnection connection;
-
-        /// <summary>
         /// The timer.
         /// </summary>
         private Timer timer;
+
+        /// <summary>
+        /// The udp engine.
+        /// </summary>
+        private UdpEngine udpEngine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -37,9 +39,8 @@ namespace NudgeToaser
         public MainWindow()
         {
             this.InitializeComponent();
-            this.connection = new HarvesterConnection();
-            this.connection.connectToHarvester();
-            
+            this.udpEngine = new UdpEngine(11111, 22222);
+            udpEngine.StartUdpServer();
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace NudgeToaser
         /// </param>
         private void Callback(object state)
         {
-            this.connection.sendToClients("TIMER");
+            this.udpEngine.SendToClients("TIMER");
         }
 
         /// <summary>

@@ -10,7 +10,6 @@ namespace NudgeHarvester
     using System.Linq;
     using System.Net.Mime;
     using System.Text;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     public partial class NudgeHarvesterForm : System.Windows.Forms.Form
@@ -24,7 +23,6 @@ namespace NudgeHarvester
         {
             this.InitializeComponent();
             havester = new HarvesterProgram(this);
-            havester.startUdpServer();
         }
 
         /// <summary>
@@ -40,27 +38,62 @@ namespace NudgeHarvester
             this.outputBox.TopIndex = Math.Max(this.outputBox.Items.Count - visibleItems + 1, 0);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// The exit tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
-            notifyIcon1.Visible = false;
+            this.notifyIcon1.Visible = false;
             this.Dispose();
         }
 
-        private void showLogToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Normal;
-
-        }
-
-        private void NudgeHarvesterForm_FormClosing(object sender, FormClosingEventArgs e)
+        /// <summary>
+        /// The nudge harvester form_ form closing.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void NudgeHarvesterFormFormClosing(object sender, FormClosingEventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
             e.Cancel = true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// The show log tool strip menu item_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ShowLogToolStripMenuItemClick(object sender, EventArgs e)
         {
-            havester.sendToClients("Hello");
+            this.WindowState = FormWindowState.Normal;
+
+        }
+
+        /// <summary>
+        /// The button 1_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void Button1Click(object sender, EventArgs e)
+        {
         }
     }
 
