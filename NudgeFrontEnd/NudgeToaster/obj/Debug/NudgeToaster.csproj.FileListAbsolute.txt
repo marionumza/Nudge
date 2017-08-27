@@ -35,3 +35,4 @@ C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeToaster\obj\Debug\Nudge
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeToaster\obj\Debug\NudgeToaster.csproj.CoreCompileInputs.cache
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeToaster\obj\Debug\NudgeToaster.exe
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeToaster\obj\Debug\NudgeToaster.pdb
+C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeToaster\bin\Debug\NudgeToaster.pdb

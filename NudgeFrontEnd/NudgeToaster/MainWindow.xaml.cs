@@ -9,6 +9,7 @@
 
 namespace NudgeToaser
 {
+    using System.ComponentModel;
     using System.Threading;
     using System.Windows;
 
@@ -71,6 +72,8 @@ namespace NudgeToaser
         /// Gets the udp engine.
         /// </summary>
         public UdpEngine Engine { get; }
+
+        
 
         /// <summary>
         /// The yes pressed.
@@ -175,5 +178,18 @@ namespace NudgeToaser
             this.currentAttentionSpan = 0;
         }
 
+        /// <summary>
+        /// The window_ closing.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
