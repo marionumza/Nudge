@@ -22,12 +22,12 @@ namespace NudgeToaser
         /// <summary>
         /// The short attention span. 15 min
         /// </summary>
-        private const int ShortAttentionSpan = 15000;
+        private const int ShortAttentionSpan = 60 * 15;
 
         /// <summary>
         /// The long attention span. 30 min
         /// </summary>
-        private const int LongAttentionSpan = 30000;
+        private const int LongAttentionSpan = 60 * 30;
 
         /// <summary>
         /// The timer.
