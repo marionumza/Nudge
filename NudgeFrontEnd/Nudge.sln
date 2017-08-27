@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NudgeHarvester", "NudgeHarvester\NudgeHarvester.csproj", "{CE641D5F-C6CD-4E03-89DE-3D58028ABAE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NudgeToaster", "NudgeToaser\NudgeToaster.csproj", "{B1384948-63A5-4098-B0EE-7ED3464D9758}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NudgeToaster", "NudgeToaster\NudgeToaster.csproj", "{B1384948-63A5-4098-B0EE-7ED3464D9758}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NudgeUtils", "NudgeUtils\NudgeUtils.shproj", "{A843EF69-D44E-4D8E-A188-A4CC8A6D94AD}"
 EndProject
