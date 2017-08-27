@@ -6,11 +6,19 @@
         xmlns:local="clr-namespace:NudgeToaser"
         mc:Ignorable="d"
         Title="Nudge Toaster" Height="200" Width="525">
-    <Grid>
-        <Button x:Name="StartButton" Content="Start Nudge" HorizontalAlignment="Left" Margin="156,29,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="ButtonClick">
+    <Grid Background="#FF0AFF4D">
+        <Button x:Name="StartButton" Content="Start Nudge" HorizontalAlignment="Center" Margin="151,21,154,82" VerticalAlignment="Center" Width="212" Height="66" Click="ButtonClick" FontWeight="Bold" FontSize="18" FontStyle="Italic" RenderTransformOrigin="0.5,0.5" Background="#FFB9FFBC" SnapsToDevicePixels="True">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.984"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.326"/>
+                </TransformGroup>
+            </Button.RenderTransform>
 
         </Button>
-        <Label x:Name="TimeLabel" HorizontalAlignment="Left" Margin="156,92,0,0" VerticalAlignment="Top" Width="212" Height="40" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="TimeLabel" HorizontalAlignment="Center" Margin="152,109,153,20" VerticalAlignment="Center" Width="212" Height="40" BorderBrush="#FF1B4900" BorderThickness="1" FontWeight="Bold" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFCEFFBB" SnapsToDevicePixels="True"/>
 
     </Grid>
 </Window>
