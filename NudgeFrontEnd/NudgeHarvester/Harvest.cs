@@ -34,5 +34,9 @@ namespace NudgeHarvester
         /// </summary>
         public int AttentionSpan { get; set; }
 
+        /// <summary>
+        /// Gets or sets the productive.
+        /// </summary>
+        public byte Productive { get; set; }
     }
 }

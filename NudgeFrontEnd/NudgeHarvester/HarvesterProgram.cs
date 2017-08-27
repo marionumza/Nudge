@@ -5,6 +5,7 @@ namespace NudgeHarvester
     using NudgeUtilities;
     using System;
     using System.IO;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     using CsvHelper;
@@ -64,14 +65,6 @@ namespace NudgeHarvester
         /// </summary>
         private CsvWriter csvWriter;
 
-
-        /// <summary>
-        /// Gets or sets the loop timer.
-        /// </summary>
-        public Timer LoopTimer { get; set; }
-
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HarvesterProgram"/> class.
         /// </summary>
@@ -79,10 +72,10 @@ namespace NudgeHarvester
         public HarvesterProgram(NudgeHarvesterForm nudgeHarvesterForm)
         {
 
-            this.csvWriter = new CsvWriter(csvStream);
+            this.csvWriter = new CsvWriter(this.csvStream);
             this.NudgeHarvesterForm = nudgeHarvesterForm ?? throw new ArgumentNullException(nameof(nudgeHarvesterForm));
 
-            this.udpEngine = new UdpEngine(22222, 11111, CallbackAsync);
+            this.udpEngine = new UdpEngine(22222, 11111, this.CallbackAsync);
             this.udpEngine.StartUdpServer();
 
             this.LoopTimer = new Timer { Interval = Cycle };
@@ -100,6 +93,16 @@ namespace NudgeHarvester
         }
 
         /// <summary>
+        /// Gets or sets the loop timer.
+        /// </summary>
+        private Timer LoopTimer { get; set; }
+
+        /// <summary>
+        /// Gets the nudge harvester form.
+        /// </summary>
+        private NudgeHarvesterForm NudgeHarvesterForm { get; }
+
+        /// <summary>
         /// The callback.
         /// </summary>
         /// <param name="received">
@@ -111,20 +114,22 @@ namespace NudgeHarvester
             {
                 this.LoopTimer.Stop();
             }
-            else if (received.Equals("SAVE"))
-            {
-                this.SaveCsvAsync().ConfigureAwait(false);
-            }
             else if (received.Equals("RESUME"))
             {
                 this.LoopTimer.Start();
             }
-        }
+            else if (received.Equals("YES"))
+            {
+                this.currentHarvest.Productive = 1;
+                this.SaveCsvAsync().ConfigureAwait(false);
+            }
+            else if (received.Equals("NO"))
+            {
+                this.currentHarvest.Productive = 0;
+                this.SaveCsvAsync().ConfigureAwait(false);
+            }
 
-        /// <summary>
-        /// Gets the nudge harvester form.
-        /// </summary>
-        private NudgeHarvesterForm NudgeHarvesterForm { get; }
+        }
 
         /// <summary>
         /// The timer callback.
@@ -151,12 +156,14 @@ namespace NudgeHarvester
             this.NudgeHarvesterForm.OutputText("Keyboard Inactive For: " + this.currentHarvest.KeyboardActivity + "ms");
             this.NudgeHarvesterForm.OutputText("Current Attention Span: " + this.currentHarvest.AttentionSpan + "ms");
             this.NudgeHarvesterForm.OutputText(string.Empty);
-            this.udpEngine.SendToClients("Ping!");
         }
 
         /// <summary>
         /// The save harvest to csv.
         /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         private async System.Threading.Tasks.Task SaveCsvAsync()
         {
             this.csvWriter.WriteRecord(this.currentHarvest);

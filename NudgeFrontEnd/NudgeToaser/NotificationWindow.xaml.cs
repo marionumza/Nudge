@@ -21,8 +21,8 @@ namespace NudgeToaser
         public NotificationWindow(MainWindow window)
         {
             this.mainWindow = window;
+
             this.InitializeComponent();
-            Visibility = Visibility.Hidden;
             var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
             this.Left = desktopWorkingArea.Right - this.Width;
             this.Top = desktopWorkingArea.Bottom - this.Height;
@@ -37,9 +37,23 @@ namespace NudgeToaser
         /// <param name="e">
         /// The e.
         /// </param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void YesButtonClick(object sender, RoutedEventArgs e)
         {
+            this.mainWindow.YesPressed();
+        }
 
+        /// <summary>
+        /// The no button click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void NoButtonClick(object sender, RoutedEventArgs e)
+        {
+            this.mainWindow.NoPressed();
         }
     }
 }

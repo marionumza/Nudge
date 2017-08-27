@@ -26,7 +26,7 @@ namespace NudgeToaser
         /// <summary>
         /// The short attention span. 15 min
         /// </summary>
-        private const int ShortAttentionSpan = 15000;
+        private const int ShortAttentionSpan = 10;
 
         /// <summary>
         /// The long attention span. 30 min
@@ -54,7 +54,10 @@ namespace NudgeToaser
         /// </summary>
         private NotificationWindow notificationWindow;
 
-
+        /// <summary>
+        /// The showing notification.
+        /// </summary>
+        private bool showingNotification;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -62,7 +65,7 @@ namespace NudgeToaser
         public MainWindow()
         {
             this.InitializeComponent();
-            notificationWindow = new NotificationWindow(this.Window);
+            this.notificationWindow = new NotificationWindow(this);
 
             this.Engine = new UdpEngine(11111, 22222, this.ReceivedCallback);
             this.Engine.StartUdpServer();
@@ -74,6 +77,36 @@ namespace NudgeToaser
         public UdpEngine Engine { get; }
 
         /// <summary>
+        /// The yes pressed.
+        /// </summary>
+        public void YesPressed()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.Engine.SendToClients("YES");
+                this.notificationWindow.Visibility = Visibility.Hidden;
+                this.Engine.SendToClients("RESUME");
+                this.currentAttentionSpan = 0;
+                this.showingNotification = false;
+            });
+        }
+
+        /// <summary>
+        /// The no pressed.
+        /// </summary>
+        public void NoPressed()
+        {
+            this.Dispatcher.Invoke(() =>
+                {
+                    this.Engine.SendToClients("NO");
+                    this.notificationWindow.Visibility = Visibility.Hidden;
+                    this.Engine.SendToClients("RESUME");
+                    this.currentAttentionSpan = 0;
+                    this.showingNotification = false;
+                });
+        }
+
+        /// <summary>
         /// The received callback.
         /// </summary>
         /// <param name="received">
@@ -82,15 +115,19 @@ namespace NudgeToaser
         private void ReceivedCallback(string received)
         {
         }
-      
+
         /// <summary>
         /// Checks to see if we should nudge user. If attention span passes a threshold, we ask the neural net if we should send a notif to the user.
         /// </summary>
         private void Nudge()
         {
-            if (this.currentAttentionSpan > currentThreshold)
+
+            if (this.currentAttentionSpan > this.currentThreshold)
             {
-                this.ShowNotification();
+                if (!this.showingNotification)
+                {
+                    this.ShowNotification();
+                }
             }
         }
 
@@ -99,8 +136,15 @@ namespace NudgeToaser
         /// </summary>
         private void ShowNotification()
         {
+            this.showingNotification = true;
             this.Engine.SendToClients("PAUSE");
-            this.notificationWindow.Visibility = Visibility.Visible;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                this.notificationWindow.Show();
+                this.notificationWindow.Visibility = Visibility.Visible;
+                this.notificationWindow.Topmost = true;
+                this.notificationWindow.WindowState = WindowState.Normal;
+            });
         }
 
         /// <summary>
@@ -112,6 +156,8 @@ namespace NudgeToaser
         private void TimerCallback(object state)
         {
             this.currentAttentionSpan++;
+            Application.Current.Dispatcher.Invoke(() => { this.TimeLabel.Content = this.currentAttentionSpan.ToString() + "sec"; });
+            this.Nudge();
         }
 
         /// <summary>
@@ -126,7 +172,9 @@ namespace NudgeToaser
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
             this.timer = new Timer(this.TimerCallback, null, 0, 1000);
+            this.WindowState = WindowState.Minimized;
             this.StartButton.Content = "Started...";
+            this.currentAttentionSpan = 0;
         }
 
     }

@@ -110,6 +110,7 @@ namespace NudgeHarvester
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "NudgeHarvesterForm";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Nudge Harvester";
             this.TopMost = true;

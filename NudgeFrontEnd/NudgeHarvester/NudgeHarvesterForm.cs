@@ -12,9 +12,15 @@ namespace NudgeHarvester
     using System.Text;
     using System.Windows.Forms;
 
+    /// <summary>
+    /// The nudge harvester form.
+    /// </summary>
     public partial class NudgeHarvesterForm : System.Windows.Forms.Form
     {
-        private HarvesterProgram havester;
+        /// <summary>
+        /// The harvesterProgram.
+        /// </summary>
+        private HarvesterProgram harvesterProgram;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NudgeHarvesterForm"/> class.
@@ -22,7 +28,16 @@ namespace NudgeHarvester
         public NudgeHarvesterForm()
         {
             this.InitializeComponent();
-            havester = new HarvesterProgram(this);
+            this.Opacity = 0;
+            this.harvesterProgram = new HarvesterProgram(this);
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            this.Hide();
+            this.Opacity = 100;
+
         }
 
         /// <summary>
@@ -66,6 +81,7 @@ namespace NudgeHarvester
         {
             this.WindowState = FormWindowState.Minimized;
             e.Cancel = true;
+            this.Hide();
         }
 
         /// <summary>
@@ -79,8 +95,8 @@ namespace NudgeHarvester
         /// </param>
         private void ShowLogToolStripMenuItemClick(object sender, EventArgs e)
         {
+            this.Show();
             this.WindowState = FormWindowState.Normal;
-
         }
 
         /// <summary>

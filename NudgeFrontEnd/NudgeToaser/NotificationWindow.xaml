@@ -5,11 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NudgeToaser"
         mc:Ignorable="d"
-        Title="Are you doing what you are supposed to be doing?" Height="94.983" Width="525">
-    <Grid>
-        <Button Content="Yes" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="Button_Click"/>
-        <Button Content="Yes" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="Button_Click"/>
-        <Button Content="No" HorizontalAlignment="Left" Margin="278,10,0,0" VerticalAlignment="Top" Width="212" Height="38" Click="Button_Click"/>
+        Height="94.983" Width="525" ResizeMode="NoResize" Background="#FFFF7400" OpacityMask="Black" BorderBrush="#FFFF7400" Foreground="#FFFF7400" SnapsToDevicePixels="True" WindowStyle="None" ShowInTaskbar="False" Topmost="True">
+    <Grid Background="#FF4CFF44">
+        <Button Content="Yes" HorizontalAlignment="Left" Margin="21,40,0,0" VerticalAlignment="Top" Width="212" Height="46" Click="YesButtonClick" FontWeight="Bold" FontSize="18" FontStyle="Italic" Background="#FFE8FFD6"/>
+        <Button Content="No" HorizontalAlignment="Left" Margin="279,39,0,0" VerticalAlignment="Top" Width="212" Height="46" Click="NoButtonClick" FontWeight="Bold" FontStyle="Italic" FontSize="18" Background="#FFE8FFD6" />
+        <Label Content="Are you doing what you are supposed to be doing?" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Top" Width="470" FontWeight="Bold" Foreground="#FF211B1B" FontSize="18" FontFamily="Segoe UI Black"/>
 
     </Grid>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard BeginTime="0" Duration="Forever">
+                        <DoubleAnimation Storyboard.TargetName="Notification" Storyboard.TargetProperty="(Window.Left)" From="{Binding ElementName=LeftProperty}" To="{Binding ElementName=WidthProperty}" AutoReverse="true" BeginTime="0:0:0" Duration="0:0:6"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
 </Window>
