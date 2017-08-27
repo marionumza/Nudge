@@ -13,15 +13,4 @@
 
     </Grid>
 
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="Window.Loaded">
-            <EventTrigger.Actions>
-                <BeginStoryboard>
-                    <Storyboard BeginTime="0" Duration="Forever">
-                        <DoubleAnimation Storyboard.TargetName="Notification" Storyboard.TargetProperty="(Window.Left)" From="{Binding ElementName=LeftProperty}" To="{Binding ElementName=WidthProperty}" AutoReverse="true" BeginTime="0:0:0" Duration="0:0:6"/>
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger.Actions>
-        </EventTrigger>
-    </Window.Triggers>
 </Window>

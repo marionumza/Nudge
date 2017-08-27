@@ -13,6 +13,13 @@ namespace NudgeToaser
         private MainWindow mainWindow;
 
         /// <summary>
+        /// The desktop working area.
+        /// </summary>
+        private Rect desktopWorkingArea = SystemParameters.WorkArea;
+
+        public double DesktopWorkingAreaRight { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NotificationWindow"/> class.
         /// </summary>
         /// <param name="window">
@@ -23,9 +30,10 @@ namespace NudgeToaser
             this.mainWindow = window;
 
             this.InitializeComponent();
-            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-            this.Left = desktopWorkingArea.Right - this.Width;
-            this.Top = desktopWorkingArea.Bottom - this.Height;
+            this.DesktopWorkingAreaRight = this.desktopWorkingArea.Right;
+
+            this.Left = this.desktopWorkingArea.Right - this.Width;
+            this.Top = this.desktopWorkingArea.Bottom - this.Height;
         }
 
         /// <summary>

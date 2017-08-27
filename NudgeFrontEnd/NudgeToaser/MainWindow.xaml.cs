@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   Interaction logic for MainWindow.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace NudgeToaser
 {
     using System.Threading;
+    using System.Windows;
 
     using NudgeUtilities;
 
@@ -26,7 +22,7 @@ namespace NudgeToaser
         /// <summary>
         /// The short attention span. 15 min
         /// </summary>
-        private const int ShortAttentionSpan = 10;
+        private const int ShortAttentionSpan = 15000;
 
         /// <summary>
         /// The long attention span. 30 min
@@ -87,6 +83,7 @@ namespace NudgeToaser
                 this.notificationWindow.Visibility = Visibility.Hidden;
                 this.Engine.SendToClients("RESUME");
                 this.currentAttentionSpan = 0;
+                this.currentThreshold = LongAttentionSpan;
                 this.showingNotification = false;
             });
         }
@@ -102,6 +99,7 @@ namespace NudgeToaser
                     this.notificationWindow.Visibility = Visibility.Hidden;
                     this.Engine.SendToClients("RESUME");
                     this.currentAttentionSpan = 0;
+                    this.currentThreshold = ShortAttentionSpan;
                     this.showingNotification = false;
                 });
         }
