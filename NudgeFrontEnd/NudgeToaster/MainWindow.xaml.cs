@@ -73,8 +73,6 @@ namespace NudgeToaser
         /// </summary>
         public UdpEngine Engine { get; }
 
-        
-
         /// <summary>
         /// The yes pressed.
         /// </summary>
@@ -84,7 +82,6 @@ namespace NudgeToaser
             {
                 this.Engine.SendToClients("YES");
                 this.notificationWindow.Visibility = Visibility.Hidden;
-                this.Engine.SendToClients("RESUME");
                 this.currentAttentionSpan = 0;
                 this.currentThreshold = LongAttentionSpan;
                 this.showingNotification = false;
@@ -100,7 +97,6 @@ namespace NudgeToaser
                 {
                     this.Engine.SendToClients("NO");
                     this.notificationWindow.Visibility = Visibility.Hidden;
-                    this.Engine.SendToClients("RESUME");
                     this.currentAttentionSpan = 0;
                     this.currentThreshold = ShortAttentionSpan;
                     this.showingNotification = false;
@@ -138,7 +134,7 @@ namespace NudgeToaser
         private void ShowNotification()
         {
             this.showingNotification = true;
-            this.Engine.SendToClients("PAUSE");
+            this.Engine.SendToClients("SNAP");
             Application.Current.Dispatcher.Invoke(() =>
             {
                 this.notificationWindow.Show();

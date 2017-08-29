@@ -27,3 +27,4 @@ C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\obj\Debug\Nud
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\obj\Debug\NudgeHarvester.pdb
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\bin\Debug\CsvHelper.dll
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\bin\Debug\CsvHelper.xml
+C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\obj\Debug\NudgeHarvester.csprojResolveAssemblyReference.cache

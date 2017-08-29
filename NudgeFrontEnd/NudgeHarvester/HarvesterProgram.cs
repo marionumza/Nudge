@@ -78,24 +78,13 @@ namespace NudgeHarvester
             this.udpEngine = new UdpEngine(22222, 11111, this.CallbackAsync);
             this.udpEngine.StartUdpServer();
 
-            this.LoopTimer = new Timer { Interval = Cycle };
-            this.LoopTimer.Tick += this.TimerCallback;
-            this.LoopTimer.Start();
-
-
 
             Application.ApplicationExit += (sender, args) =>
             {
-                this.LoopTimer.Dispose();
                 this.csvWriter.Dispose();
                 this.csvStream.Close();
             };
         }
-
-        /// <summary>
-        /// Gets or sets the loop timer.
-        /// </summary>
-        private Timer LoopTimer { get; set; }
 
         /// <summary>
         /// Gets the nudge harvester form.
@@ -110,13 +99,9 @@ namespace NudgeHarvester
         /// </param>
         private void CallbackAsync(string received)
         {
-            if (received.Equals("PAUSE"))
+            if (received.Equals("SNAP"))
             {
-                this.LoopTimer.Stop();
-            }
-            else if (received.Equals("RESUME"))
-            {
-                this.LoopTimer.Start();
+                this.SnapshotCallback();
             }
             else if (received.Equals("YES"))
             {
@@ -140,10 +125,9 @@ namespace NudgeHarvester
         /// <param name="e">
         /// The e.
         /// </param>
-        private async void TimerCallback(object state, EventArgs e)
+        private async void SnapshotCallback()
         {
             this.myAttentionSpanKnower.Increment(Cycle);
-
             this.currentHarvest.AttentionSpan = this.myAttentionSpanKnower.GetAttentionSpan();
             this.currentHarvest.ForegroundAppHash = this.myForegroundAppKnower.GetForegroundApp().GetHashCode();
             this.currentHarvest.MouseActivity = this.myMouseActivityKnower.GetInactiveMouseElapsed();

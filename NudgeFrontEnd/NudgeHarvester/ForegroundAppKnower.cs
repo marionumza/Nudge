@@ -13,6 +13,7 @@ namespace NudgeHarvester
     using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     /// <summary>
@@ -40,7 +41,6 @@ namespace NudgeHarvester
             }
             if (foregroundProcess == null)
             {
-                Thread.Sleep(100);
                 return this.GetForegroundApp();
             }
             else

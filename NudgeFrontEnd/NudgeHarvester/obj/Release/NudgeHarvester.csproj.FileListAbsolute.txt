@@ -15,3 +15,7 @@ C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\bin\x64\Relea
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\bin\x64\Release\x86\NudgeHarvester.exe
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\bin\x64\Release\x86\NudgeHarvester.pdb
 C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\bin\x64\Release\x86\Gma.System.MouseKeyHook.dll
+C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\bin\Release\CsvHelper.dll
+C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\bin\Release\CsvHelper.xml
+C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\obj\Release\NudgeHarvester.Properties.Resources.resources
+C:\Users\Sammy\Documents\GitHub\Nudge\NudgeFrontEnd\NudgeHarvester\obj\Release\NudgeHarvester.csproj.CoreCompileInputs.cache
