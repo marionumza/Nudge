@@ -2,14 +2,14 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 
-def trainNeuralNet():
+def trainNeuralNet(train = True):
     # Data sets
     TF_DATA_FILE = "../data/tf_data.csv"
     TRAINING = "../data/train.csv"
     TEST = "../data/test.csv"
 
     #Creating dataset
-    dset = pd.read_csv(TF_DATA_FILE,sep=",",usecols=('mouse_activity','keyboard_activity','time_last_request','foreground_app','productive'))
+    dset = pd.read_csv(TF_DATA_FILE,sep=",",usecols=('foreground_app','keyboard_activity','mouse_activity','time_last_request','productive'))
     print ("datasize",dset.size)
     dset.replace('', np.nan, inplace = True)
     dset.dropna(inplace=True)
@@ -28,7 +28,7 @@ def trainNeuralNet():
     classifier = tf.contrib.learn.DNNClassifier(hidden_units=[10, 10],
                                                 n_classes=2,
                                                 model_dir="../data/model",feature_columns=feature_columns)
-    if()
+    if(train):
         print('Training Neural Network....')
         # Fit model.
         classifier.fit(x=training_set.data,
