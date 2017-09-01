@@ -76,7 +76,7 @@ if __name__ == '__main__':
   # Set C++ Graph Execution level verbosity
   os.environ['TF_CPP_MIN_LOG_LEVEL'] = str(
       tf.logging.__dict__[args.verbosity] / 10)
- 
+
   # Run the training job
   # learn_runner pulls configuration information from environment
   # variables using tf.learn.RunConfig and uses this configuration
