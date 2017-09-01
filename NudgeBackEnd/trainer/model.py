@@ -28,12 +28,13 @@ def trainNeuralNet():
     classifier = tf.contrib.learn.DNNClassifier(hidden_units=[10, 10],
                                                 n_classes=2,
                                                 model_dir="../data/model",feature_columns=feature_columns)
-    print('Training Neural Network....')
-    # Fit model.
-    classifier.fit(x=training_set.data,
-                   y=training_set.target,
-                   steps=1000)
-    print('Training completed!')
+    if()
+        print('Training Neural Network....')
+        # Fit model.
+        classifier.fit(x=training_set.data,
+                       y=training_set.target,
+                       steps=1000)
+        print('Training completed!')
 
     # Evaluate accuracy.
     accuracy_score = classifier.evaluate(x=test_set.data,
